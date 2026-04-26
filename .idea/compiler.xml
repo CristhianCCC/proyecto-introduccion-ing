@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="sharedDto" />
+        <module name="com.inventorymc" />
         <module name="user" />
         <module name="eureka" />
       </profile>
@@ -17,6 +18,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="com.inventorymc" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="inventory" options="-parameters" />
       <module name="sharedDto" options="-parameters" />
