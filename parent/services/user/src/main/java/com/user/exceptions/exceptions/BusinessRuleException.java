@@ -25,6 +25,9 @@ public class BusinessRuleException extends RuntimeException {
         this.httpStatus = httpStatus;
     }
 
+    public BusinessRuleException(HttpStatus httpStatus, String authInvalid, HttpStatus httpStatus1, String invalidEmailOrPassword) {
+    }
+
     public String getCode() {
         return code;
     }

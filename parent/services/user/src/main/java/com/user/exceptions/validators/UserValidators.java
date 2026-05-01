@@ -4,6 +4,7 @@ import com.services.dtos.UserDto;
 import com.services.enums.UserRol;
 import com.user.exceptions.exceptions.BusinessRuleException;
 import com.user.repository.UserRepository;
+import com.user.security.dto.AuthRequest;
 import org.springframework.http.HttpStatus;
 
 public class UserValidators {
@@ -29,8 +30,10 @@ public class UserValidators {
             throw new BusinessRuleException("1004", "Invalid email format", HttpStatus.BAD_REQUEST);
         }
 
-        if (userRepository.findByEmail(dto.getEmail()) != null) {
-            throw new BusinessRuleException("1005", "Email already exists", HttpStatus.CONFLICT);
+        var existingUser = userRepository.findByEmail(dto.getEmail());
+
+        if (existingUser.isPresent() && !existingUser.get().getId().equals(dto.getId())) {
+            throw new BusinessRuleException("1014", "Email already in use", HttpStatus.CONFLICT);
         }
 
         if (dto.getRol() == null) {
@@ -73,8 +76,8 @@ public class UserValidators {
 
         var existingUser = userRepository.findByEmail(dto.getEmail());
 
-        if (existingUser != null && !existingUser.getId().equals(dto.getId())) {
-            throw new BusinessRuleException("1014", "Email already in use", HttpStatus.CONFLICT);
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new BusinessRuleException("1005", "Email already exists", HttpStatus.CONFLICT);
         }
 
         if (dto.getRol() == null) {
@@ -90,6 +93,11 @@ public class UserValidators {
             if (dto.getPassword().length() < 6) {
                 throw new BusinessRuleException("1017", "Password must be at least 6 characters", HttpStatus.BAD_REQUEST);
             }
+        }
+    }
+    public static void validateCredentials(AuthRequest dto) throws BusinessRuleException {
+        if (dto == null) {
+            throw new BusinessRuleException("2005", "Credentials cannot be empty", HttpStatus.BAD_REQUEST);
         }
     }
 }

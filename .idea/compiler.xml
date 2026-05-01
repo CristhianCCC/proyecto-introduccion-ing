@@ -9,6 +9,7 @@
         <module name="sharedDto" />
         <module name="com.inventorymc" />
         <module name="user" />
+        <module name="demo" />
         <module name="eureka" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="com.inventorymc" options="-parameters" />
+      <module name="demo" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="inventory" options="-parameters" />
       <module name="sharedDto" options="-parameters" />

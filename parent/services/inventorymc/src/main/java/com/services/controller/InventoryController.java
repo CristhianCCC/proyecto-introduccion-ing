@@ -1,6 +1,7 @@
 package com.services.controller;
 import com.services.dtos.InventoryDTO;
 import com.services.service.InventoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,8 @@ public class InventoryController {
     //  Crear
     @PostMapping
     public ResponseEntity<InventoryDTO> create(@RequestBody InventoryDTO dto) {
-        return ResponseEntity.ok(service.save(dto));
+        InventoryDTO saved = service.save(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     //  Actualizar

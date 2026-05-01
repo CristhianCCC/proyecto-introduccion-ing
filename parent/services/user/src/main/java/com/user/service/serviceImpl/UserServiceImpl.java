@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -51,8 +50,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        return user != null ? mapToDto(user) : null;
+        return userRepository.findByEmail(email)
+                .map(this::mapToDto)
+                .orElse(null);
     }
 
     @Override
